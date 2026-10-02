@@ -1,37 +1,93 @@
-import React,{Suspense,lazy,useEffect,useRef,useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {createRoot} from 'react-dom/client';
-import {AnimatePresence,motion,MotionConfig} from 'motion/react';
-import {matters,stages,layers,essentials} from './content';
-import useMotion from './useMotion';
-import './noir.css';
+import {MotionConfig, motion} from 'motion/react';
+import {matters, stages, faqs} from './content.js';
+import PreparationDialog from './components/PreparationDialog.jsx';
+import useMotion from './useMotion.js';
 import './criminal.css';
-const Courthouse=lazy(()=>import('./Courthouse'));
-function Art(props){return <Suspense fallback={<img className="court-art" src="/courthouse.webp" alt=""/>}><Courthouse {...props}/></Suspense>}
-const Selector=({compact=false,index,onChange})=><div className={compact?'case-selector compact':'case-selector'} aria-label="Type of matter">{matters.map((m,i)=><button key={m.id} aria-pressed={index===i} className={index===i?'active':''} onClick={()=>onChange(i)}>{compact?'0'+(i+1):m.label}<span className="sr-only">{compact?' '+m.label:''}</span></button>)}</div>;
-function App(){
- const root=useRef(null),canvas=useRef(null),hero=useRef(null),progress=useRef(0),dialog=useRef(null),close=useRef(null),previous=useRef(null);
- const [caseIndex,setCaseIndex]=useState(0),[mode,setMode]=useState(0),[open,setOpen]=useState(false),[checked,setChecked]=useState([false,false,false]),[quiet,setQuiet]=useState(false),[reduced,setReduced]=useState(()=>matchMedia('(prefers-reduced-motion: reduce)').matches),[notice,setNotice]=useState('');
- useEffect(()=>{const m=matchMedia('(prefers-reduced-motion: reduce)');const change=()=>setReduced(m.matches);m.addEventListener('change',change);return()=>m.removeEventListener('change',change)},[]);
- const paused=quiet||reduced;useMotion(root,canvas,hero,progress,paused);
- const matter=matters[caseIndex],stage=stages[mode],count=checked.filter(Boolean).length;
- const show=(index=caseIndex)=>{previous.current=document.activeElement;setCaseIndex(index);setOpen(true)};
- useEffect(()=>{if(!open)return;close.current?.focus();const key=e=>{if(e.key==='Escape')setOpen(false);if(e.key==='Tab'){const list=[...dialog.current.querySelectorAll('button,input,a[href]')].filter(x=>!x.disabled);if(e.shiftKey&&document.activeElement===list[0]){e.preventDefault();list.at(-1)?.focus()}else if(!e.shiftKey&&document.activeElement===list.at(-1)){e.preventDefault();list[0]?.focus()}}};document.addEventListener('keydown',key);const old=document.body.style.overflow;document.body.style.overflow='hidden';return()=>{document.body.style.overflow=old;document.removeEventListener('keydown',key);previous.current?.focus()}},[open]);
- const download=()=>{const text=['LAW YOUR WAY / PERSONAL PREPARATION BRIEF','Matter: '+matter.label,'',...essentials.map((x,i)=>(checked[i]?'[x] ':'[ ] ')+x),'','This checklist stays on your device. Do not send sensitive documents until a qualified firm confirms a secure intake channel.','Website concept — no legal advice or attorney-client relationship.'].join('\n');const url=URL.createObjectURL(new Blob([text],{type:'text/plain'}));const a=document.createElement('a');a.href=url;a.download='law-your-way-preparation.txt';a.click();URL.revokeObjectURL(url);setNotice('Your preparation brief has been downloaded.')};
 
- return <MotionConfig reducedMotion={paused?'always':'user'}><div ref={root} className={'noir criminal-law '+(paused?'paused':'')}><canvas ref={canvas} className="n-stars" aria-hidden="true"/><div className="n-cursor-glow" aria-hidden="true"/><a className="skip-link" href="#object">Skip to defense approach</a>
- <header className="n-nav"><a href="#top" className="n-logo" aria-label="Law Your Way home">LAW YOUR WAY <span>DEFENSE</span></a><nav aria-label="Main navigation"><a href="#object">Approach</a><a href="#materials">Your matter</a><a href="#collection">Practice</a></nav><button onClick={()=>show()} className="n-bag">START HERE <span>↗</span></button></header>
- <main id="top"><section className="n-hero"><div className="n-hero-rule"><span>CRIMINAL DEFENSE</span><span>YOUR RIGHTS / YOUR FUTURE</span><span>LAW YOUR WAY</span></div><div className="n-edition">CONSIDERED DEFENSE / BUILT AROUND THE INDIVIDUAL</div><h1><span>PROTECT</span><span>YOUR FUTURE</span><span className="n-serif">your way.</span></h1><p className="n-hero-copy">An allegation should never define the whole person. Understand the facts, the process, and the questions to ask before your next step.</p><div className="n-stage"><div className="n-halo"/><div ref={hero} className="legal-hero-object"><Art paused={paused}/></div><div className="n-axis n-axis-x"/><div className="n-axis n-axis-y"/></div><div className="n-hero-buy"><div className="n-hero-buy-top"><span>YOUR MATTER / {matter.label}</span><strong>0{caseIndex+1}</strong></div><Selector compact index={caseIndex} onChange={setCaseIndex}/><button className="n-hero-add" onClick={()=>show()}>PREPARE YOUR NEXT STEP <span>↗</span></button><div className="n-hero-trust"><span>The facts</span><span>The options</span><span>The next step</span></div></div><div className="n-scroll">SCROLL TO EXPLORE <span/></div></section>
- <section className="n-editorial"><div className="n-editorial-top n-reveal"><span>01 / DEFENSE STARTS WITH YOU</span><p>More than a case number.</p></div><div className="n-editorial-grid"><div className="n-editorial-copy n-reveal"><h2>YOUR<br/>FUTURE.<br/><em>In focus.</em></h2><p>Start with what matters to you. A meaningful conversation connects the legal questions to your work, your family, and the life beyond the case.</p></div><div className="n-profile n-reveal"><Art light paused={paused}/><div className="n-profile-line one"/><div className="n-profile-line two"/><div className="n-profile-line three"/><span className="n-profile-label a">THE INDIVIDUAL</span><span className="n-profile-label b">THE RECORD</span><span className="n-profile-label c">THE NEXT STEP</span></div></div></section>
- <section id="object" className="n-explode"><div className="n-explode-copy n-reveal"><span>02 / THE ARCHITECTURE OF DEFENSE</span><h2>EVERY<br/>DETAIL<br/><em>has a place.</em></h2><p>A case is built from layers. A careful review connects the timeline, the record, the questions, and the plan.</p></div><div className="n-explode-object legal-exploded"><Art progress={progress} paused={paused}/><span className="assembly-label">FOUNDATION / RECORD / REVIEW</span></div><div className="n-specs">{layers.map(([number,title,note])=><div key={number} className="n-spec-row"><span>{number}</span><b>{title}</b><small>{note}</small></div>)}</div></section>
- <section id="materials" className="n-materials"><div className="n-material-left n-reveal"><span>03 / YOUR CIRCUMSTANCES</span><h2>YOUR<br/>MATTER.<br/>YOUR WAY.</h2><p>Different stages bring different questions. Choose the situation closest to yours to see what to organize for a conversation.</p><Selector index={caseIndex} onChange={setCaseIndex}/></div><div className="n-material-product"><Art paused={paused}/><div className="n-material-name"><span>{matter.short}</span><b>CRIMINAL DEFENSE</b></div><div className="matter-description" aria-live="polite"><h3>{matter.title}</h3><p>{matter.text}</p></div></div></section>
- <section className="n-listen"><div className="n-listen-copy n-reveal"><span>04 / A CLEARER PROCESS</span><h2>SEE THE<br/>PATH<br/><em>ahead.</em></h2><p>Know what each stage is for. Ask what is required, who is responsible, and how the next decision will be made.</p><div className="n-mode-buttons">{stages.map((s,i)=><button className={mode===i?'active':''} aria-pressed={mode===i} key={s.id} onClick={()=>setMode(i)}><span>0{i+1}</span>{s.name}</button>)}</div></div><div className={'n-listen-visual mode-'+stage.id}><div className="n-wavefield" aria-hidden="true">{Array.from({length:13},(_,i)=><i key={i} style={{'--i':i}}/>)}</div><div className="n-listen-core"><Art paused={paused}/></div><div className="n-listen-readout" aria-live="polite"><span>{stage.label}</span><b>{stage.number}</b><AnimatePresence mode="wait"><motion.p key={mode} initial={{opacity:0,y:5}} animate={{opacity:1,y:0}} exit={{opacity:0}} transition={{duration:.2}}>{stage.text}</motion.p></AnimatePresence></div></div></section>
- <section id="collection" className="n-collection"><div className="n-collection-head n-reveal"><span>05 / CRIMINAL DEFENSE</span><h2>ONE PERSON.<br/>A WHOLE FUTURE.</h2></div><div className="n-products">{matters.map((m,i)=><article className={'n-product p'+(i+1)} key={m.id}><div className="n-product-art"><img src="/courthouse.webp" alt="Sculptural courthouse portico"/><span>0{i+1}</span></div><div className="n-product-meta"><div><h3>{m.label.toUpperCase()}</h3><p>{m.short}</p></div></div><div className="n-commerce-row"><span>{m.notes[0]}</span><span>{m.notes[1]}</span></div><button onClick={()=>show(i)}>EXPLORE NEXT STEPS <span>↗</span></button></article>)}</div></section>
- <section className="n-proof"><div className="n-proof-copy n-reveal"><span>06 / QUESTIONS TO EXPECT</span><h2>CLARITY<br/>AT EVERY<br/>TURN.</h2></div><div className="n-proof-grid">{[['WHAT','The facts to review'],['WHEN','Dates and deadlines'],['HOW','Options and responsibilities'],['NEXT','A plan you understand']].map(([word,label])=><div className="n-reveal" key={word}><strong>{word}</strong><span>{label}</span></div>)}</div></section>
- <section className="n-manifesto"><p className="n-reveal">BUILT AROUND THE INDIVIDUAL.</p><h2 className="n-reveal">MORE THAN<br/>AN ALLEGATION.<br/>A HUMAN LIFE.</h2><div className="n-ticker" aria-hidden="true"><div>FACTS — RIGHTS — OPTIONS — PREPARATION — DIRECTION — FACTS — RIGHTS — OPTIONS — PREPARATION — DIRECTION —</div></div></section>
- <section className="n-buy"><span className="n-reveal">07 / TAKE THE NEXT STEP</span><h2 className="n-reveal">YOUR WAY.</h2><p className="n-reveal">Start with a timeline, your documents, and the questions that matter. Keep your preparation in one place.</p><button className="n-reveal" onClick={()=>show()}>BUILD YOUR PREPARATION BRIEF ↗</button><footer><span>LAW YOUR WAY / CRIMINAL DEFENSE</span><span>Website concept / no legal advice</span><a href="#top">BACK TO TOP ↗</a></footer><p className="site-disclosure">Law Your Way is a demonstration identity, not a verified law firm. No attorney–client relationship is created. Consult a qualified attorney for advice about your situation.</p></section></main>
- <AnimatePresence>{open&&<><motion.button className="legal-backdrop" aria-label="Close preparation drawer" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setOpen(false)} tabIndex={-1}/><motion.aside ref={dialog} role="dialog" aria-modal="true" aria-labelledby="drawer-title" className="n-cart open legal-drawer" initial={{x:'100%'}} animate={{x:0}} exit={{x:'100%'}} transition={{duration:paused?0:.35}} data-lenis-prevent><div className="n-cart-head"><h2 id="drawer-title">YOUR NEXT STEP</h2><button ref={close} onClick={()=>setOpen(false)}>CLOSE</button></div><div className="n-cart-items"><p className="drawer-case">{matter.label}</p><p>{matter.text}</p><div className="drawer-checklist">{essentials.map((label,i)=><label key={label}><input type="checkbox" checked={checked[i]} onChange={e=>setChecked(values=>values.map((v,j)=>j===i?e.target.checked:v))}/><span>{label}</span></label>)}</div><div className="drawer-note"><strong>KEEP IT PRIVATE.</strong><p>This preparation stays in your browser. No information is submitted. Wait for a firm to confirm a secure channel before sharing sensitive documents.</p></div></div><div className="n-cart-foot"><div><span>ESSENTIALS READY</span><strong>{count} / 3</strong></div><button onClick={download}>DOWNLOAD YOUR BRIEF ↗</button><small role="status">{notice||'A personal checklist — not legal advice.'}</small></div></motion.aside></>}</AnimatePresence>
- <button className="motion-toggle" aria-pressed={paused} disabled={reduced} onClick={()=>setQuiet(!quiet)}>{paused?'Motion paused':'Pause motion'}</button></div></MotionConfig>
+import DepthLayer from './components/DepthLayer.jsx';
+const Arrow = () => <span aria-hidden="true">↗</span>;
+
+function App() {
+  const root = useRef(null);
+  const heroImage = useRef(null);
+  const heroDepth = useRef(0);
+  const menuButton = useRef(null);
+  const [matterIndex, setMatterIndex] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [checked, setChecked] = useState([false,false,false]);
+  const [quiet, setQuiet] = useState(false);
+  const [reduced, setReduced] = useState(() => matchMedia('(prefers-reduced-motion: reduce)').matches);
+  useEffect(() => {
+    const media = matchMedia('(prefers-reduced-motion: reduce)');
+    const change = () => setReduced(media.matches);
+    media.addEventListener('change',change);
+    return () => media.removeEventListener('change',change);
+  },[]);
+  useEffect(() => {
+    const key = event => {if(event.key === 'Escape' && menuOpen) {setMenuOpen(false);menuButton.current?.focus();}};
+    document.addEventListener('keydown',key);
+    return () => document.removeEventListener('keydown',key);
+  },[menuOpen]);
+  const paused = quiet || reduced;
+  useMotion(root, heroImage, heroDepth, paused);
+  const matter = matters[matterIndex];
+  const showPreparation = () => {setMenuOpen(false);setOpen(true);};
+  const selectMatter = index => setMatterIndex(index);
+  const navigate = () => setMenuOpen(false);
+
+  return <MotionConfig reducedMotion={paused?'always':'user'}><div ref={root} className={'law-site' + (paused?' motion-paused':'')}>
+    <div className="ambient-layer" aria-hidden="true"><div className="ambient-light"/><div className="ambient-grain"/></div>
+    <a className="skip-link" href="#object">Skip to content</a>
+    <header className="site-header">
+      <a className="wordmark" href="#top" aria-label="Law Your Way home">LAW YOUR WAY<span>CRIMINAL DEFENSE</span></a>
+      <nav aria-label="Main navigation" className="desktop-nav"><a href="#object">Our approach</a><a href="#materials">Your situation</a><a href="#collection">Preparation</a><a href="#questions">Questions</a></nav>
+      <button className="header-action" onClick={showPreparation}>Prepare a conversation <Arrow/></button>
+      <button ref={menuButton} className="menu-button" aria-expanded={menuOpen} aria-controls="mobile-menu" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen?'Close':'Menu'} <span aria-hidden="true">{menuOpen?'×':'+'}</span></button>
+      <nav id="mobile-menu" aria-label="Mobile navigation" className={'mobile-menu' + (menuOpen?' is-open':'')} hidden={!menuOpen}>
+        <a onClick={navigate} href="#object">Our approach</a><a onClick={navigate} href="#materials">Your situation</a><a onClick={navigate} href="#collection">Preparation</a><a onClick={navigate} href="#questions">Questions</a><button onClick={showPreparation}>Prepare a conversation <Arrow/></button>
+      </nav>
+    </header>
+    <main id="top">
+      <section className="hero" aria-labelledby="hero-title">
+        <div className="hero-subject" ref={heroImage} aria-hidden="true"><img src="/judicial-passage.webp" alt="" fetchPriority="high" width="1536" height="1024"/><DepthLayer paused={paused} progress={heroDepth}/></div>
+        <div className="hero-shade" aria-hidden="true"/>
+        <div className="hero-content container">
+          <motion.p className="eyebrow" initial={paused?false:{opacity:0,y:8}} animate={{opacity:1,y:0}} transition={{duration:paused?0:.6}}>Criminal defense. Personal perspective.</motion.p>
+          <h1 id="hero-title">Your future.<br/><span>Your defense.</span></h1>
+          <p className="hero-copy">Facing an investigation or criminal charge? Begin with clear questions, careful preparation, and a better understanding of what comes next.</p>
+          <div className="hero-actions"><button className="button primary" onClick={showPreparation}>Prepare your next step <Arrow/></button><a className="text-link" href="#materials">Find your starting point <span aria-hidden="true">↓</span></a></div>
+        </div>
+      </section>
+
+      <section id="object" className="approach section container">
+        <div className="approach-heading"><p className="section-label">The person comes first</p><h2>A case has a record.<br/>A person has a life.</h2><p>The paperwork is only part of the picture. Your work, family, concerns, and priorities belong in the conversation too.</p></div>
+        <div className="principles"><article><span className="principle-mark" aria-hidden="true">/</span><div><h3>Listen before deciding.</h3><p>Start with your account of events and the questions you need answered.</p></div></article><article><span className="principle-mark" aria-hidden="true">/</span><div><h3>Make the detail understandable.</h3><p>Keep documents, dates, and uncertainty in view. Clear language makes the conversation useful.</p></div></article><article><span className="principle-mark" aria-hidden="true">/</span><div><h3>Know the next step.</h3><p>Discuss the options, responsibilities, and communication you would expect from counsel.</p></div></article></div>
+      </section>
+
+      <section id="materials" className="situations section">
+        <div className="container"><div className="section-heading"><h2>Where are you<br/>in the process?</h2><p>Choose the situation closest to yours. Bring the right information to the first conversation.</p></div>
+          <div className="matter-layout"><div className="matter-options" aria-label="Your situation">{matters.map((item,index) => <button key={item.id} aria-pressed={matterIndex===index} onClick={() => selectMatter(index)} className={matterIndex===index?'is-selected':''}><span>{item.label}</span><span className="matter-stage">{item.short}</span><Arrow/></button>)}</div>
+            <div className="matter-panel" aria-live="polite"><div className="matter-panel-top"><span>{matter.short}</span><span aria-hidden="true">LAW YOUR WAY</span></div><h3>{matter.title}</h3><p>{matter.text}</p><h4>Useful to have together</h4><ul>{matter.notes.map(item => <li key={item}>{item}</li>)}</ul><div className="question-note"><span>A question to begin with</span><p>{matter.question}</p></div><button className="text-link" onClick={showPreparation}>Build your checklist <Arrow/></button></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="collection" className="preparation section container">
+        <div className="preparation-heading"><h2>Clarity begins<br/>with preparation.</h2><p>You do not need to have every answer. A short timeline, the documents you have, and a list of questions give the conversation somewhere to start.</p><button className="button secondary" onClick={showPreparation}>Open preparation checklist <Arrow/></button></div>
+        <ol className="process-list">{stages.map((stage,index) => <li key={stage.id}><span className="process-number">{String(index+1).padStart(2,'0')}</span><div><h3>{stage.name}</h3><p>{stage.text}</p></div></li>)}</ol>
+      </section>
+
+      <section id="questions" className="questions section container"><div><h2>Before you<br/>take the next step.</h2><p>Practical answers about using this website and preparing a conversation.</p></div><div className="faq-list">{faqs.map(item => <details key={item.question}><summary>{item.question}<span className="faq-plus" aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div></section>
+
+      <section className="closing container"><div className="closing-surface"><h2>Start with<br/>what matters to you.</h2><div><p>Put your questions in order.<br/>Keep your future in view.</p><button className="button primary" onClick={showPreparation}>Create your checklist <Arrow/></button></div></div></section>
+    </main>
+    <footer className="site-footer container"><div className="footer-top"><a className="wordmark" href="#top">LAW YOUR WAY<span>CRIMINAL DEFENSE</span></a><div><a href="#object">Our approach</a><a href="#questions">Questions</a><button className="text-button" aria-pressed={paused} disabled={reduced} onClick={() => setQuiet(!quiet)}>{paused?'Motion paused':'Pause motion'}</button><a href="#top">Back to top ↑</a></div></div><div className="footer-bottom"><p>Law Your Way is a demonstration identity, not a verified law firm. This website does not provide legal advice, receive case enquiries, or create an attorney-client relationship.</p><span>© {new Date().getFullYear()} Law Your Way</span></div></footer>
+    <PreparationDialog open={open} onClose={() => setOpen(false)} matterIndex={matterIndex} onMatterChange={setMatterIndex} checked={checked} onCheck={(index,value) => setChecked(items => items.map((item,i) => i===index?value:item))}/>
+  </div></MotionConfig>;
 }
-const reactRoot=import.meta.hot?.data.root || createRoot(document.getElementById('root'));
+const reactRoot = import.meta.hot?.data.root || createRoot(document.getElementById('root'));
 reactRoot.render(<App/>);
-if(import.meta.hot) import.meta.hot.data.root=reactRoot;
+if (import.meta.hot) import.meta.hot.data.root = reactRoot;

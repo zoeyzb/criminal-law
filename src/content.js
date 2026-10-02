@@ -1,12 +1,35 @@
 export const matters = [
-  {id:'investigation',label:'Investigation',short:'BEFORE CHARGES',title:'UNDER INVESTIGATION',text:'Questions from investigators, a search, or an allegation can raise urgent decisions. Identify what has happened and what needs a qualified attorney’s attention.',notes:['Timeline & notices','Questions for counsel','Documents & deadlines']},
-  {id:'charges',label:'Criminal charges',short:'AFTER CHARGES',title:'FACING CHARGES',text:'A charge is an allegation, not a verdict. Keep court documents and dates together so counsel can review the procedure, evidence, and possible next steps.',notes:['Court documents','Hearing dates','Release conditions']},
-  {id:'appeal',label:'Post-trial review',short:'AFTER A DECISION',title:'SEEKING A REVIEW',text:'Review and appeal procedures depend on the jurisdiction and decision. Gather the judgment and relevant dates; an attorney can assess available routes and deadlines.',notes:['Judgment & orders','Relevant dates','Existing case record']},
+  {
+    id: 'investigation', label: 'Under investigation', short: 'Before charges',
+    title: 'Start with what is known.',
+    text: 'A request for information, an interview, or a search can leave you with more questions than answers. A focused conversation starts with a clear account of what happened.',
+    notes: ['A timeline of events and contact', 'Any notices or documents received', 'Questions you want to discuss'],
+    question: 'What has happened so far, and what needs attention first?',
+  },
+  {
+    id: 'charges', label: 'Facing criminal charges', short: 'After charges',
+    title: 'Bring the details into focus.',
+    text: 'Court paperwork, unfamiliar language, and upcoming dates can feel overwhelming. Keep the record together so your conversation can focus on the issues that matter.',
+    notes: ['Court documents and case reference', 'Upcoming dates listed on your paperwork', 'Your priorities and questions'],
+    question: 'What do the documents say, and what is the next scheduled event?',
+  },
+  {
+    id: 'appeal', label: 'Review after a decision', short: 'After a decision',
+    title: 'Understand the next conversation.',
+    text: 'A decision can raise new questions. Gather the existing record and the dates associated with it before discussing whether further review is available.',
+    notes: ['The judgment and relevant orders', 'Dates and correspondence', 'The existing case record'],
+    question: 'What decision was made, and what would you like reviewed?',
+  },
 ];
-export const stages=[
- {id:'review',name:'REVIEW',label:'UNDERSTAND THE FACTS',number:'01',text:'Organize the timeline, documents, and immediate questions. Counsel can assess what is known, what is missing, and what is time-sensitive.'},
- {id:'strategy',name:'STRATEGY',label:'ASSESS THE OPTIONS',number:'02',text:'Discuss available routes, uncertainties, costs, and timing. A useful strategy responds to the actual case and the client’s priorities.'},
- {id:'representation',name:'REPRESENTATION',label:'PREPARE THE NEXT STEP',number:'03',text:'Understand the scope of representation, responsibilities, and communication. Specific advice begins with a qualified attorney who agrees to act for you.'},
+export const stages = [
+  {id:'review',name:'Understand the record',text:'Connect the documents with your account of events. Identify gaps, questions, and the dates already on the calendar.'},
+  {id:'strategy',name:'Discuss the options',text:'Ask about the available routes, uncertainty, timing, and costs. A useful conversation makes the choices easier to understand.'},
+  {id:'representation',name:'Agree on the next step',text:'Clarify the scope of any representation, how communication will work, and who is responsible for each action.'},
 ];
-export const layers=[['01','The timeline','events, notices & deadlines'],['02','The record','documents, statements & orders'],['03','The questions','uncertainties to discuss with counsel'],['04','The plan','options, scope & next steps']];
-export const essentials=['Write a short timeline','Collect court notices and dates','List questions for an attorney'];
+export const essentials = ['Write a short timeline', 'Collect court notices and dates', 'List questions for an attorney'];
+export const faqs = [
+  {question:'What should I bring to an initial conversation?',answer:'Start with the paperwork you have, a short timeline, and your questions. The preparation checklist on this page helps you organize those items without submitting private information.'},
+  {question:'Can I use this website to request representation?',answer:'This website is a demonstration of the Law Your Way identity. It does not receive case enquiries or connect you with an attorney. A real firm must confirm its identity, jurisdiction, and intake channel before offering representation.'},
+  {question:'Does the checklist send my information anywhere?',answer:'No. Checklist selections are held in this page while it is open. The downloaded brief is a text file on your device. There is no case submission, account, or external storage.'},
+  {question:'Will this tell me what to do in my case?',answer:'No. The content is a preparation aid, not advice about a specific case. Discuss your circumstances with a qualified attorney who can review the record and applicable law.'},
+];

@@ -1,31 +1,40 @@
-# Design QA — Law Your Way
+# Design QA | October 2 redesign
 
-Status: passed for the inspected desktop and mobile fallback experience; live GPU rendering remains unverified.
+Status: inspected desktop/mobile presentation and core interactions passed. GPU rendering and production deployment are not verified.
 
-## Reference and comparison
+## Audit and response
 
-User-owned source: FØR YOU Audio, deployed from `zoeyzb/aegis-trading` commit `3d642fcbd76ddd26c6b7fc58e26dc9a5fcca2e03`. Source section order, CSS geometry, type pairing, alternating black/ivory surfaces, selectors, object stages, card collection, grid, manifesto and closing drawer are retained. Product semantics are deliberately replaced by criminal-defense content.
+The previous commit 311a5fc retained an audio-store silhouette: swatches, collection cards, repeated miniature courthouse, giant slogans, numbered sections and theme inversion. Latest user direction supersedes exact-source copying. The new layout removes all product presentation, reduces the content sequence to useful legal preparation topics and locks every section to deep graphite/silver. One fictional judicial interior provides human-scale depth without a toy temple or gavel. Body text and actions remain HTML independent of 3D.
 
-Desktop comparison: `verification/source-hero.jpg`, `verification/hero.jpg`, and `verification/comparison.jpg` at 1363 × 926. Mobile comparison: `verification/mobile-comparison.jpg`, using two actual 390 × 844 iframe viewports (375px content width after the scrollbar), not a scaled desktop screenshot. Test-only harness retained in verification and excluded from production public assets.
+## Checks actually performed
 
-## Verified
+| Check | Evidence / result |
+|---|---|
+| Production build | `npm run build` passes; Vite warns about large 3D/animation chunks. Renderer is lazy and gated before importing. |
+| Checklist content | Node test checks all 24 public file variants against shared formatter, selected matter, checked count, document list and disclosure. |
+| Download integration | Browser saved `/checklists/investigation-010.txt`; file was read in the synchronized workspace and contains only the second item checked. |
+| Widths | Actual iframe viewports 320 / 390 / 768 / 1024 / 1440: scrollWidth equals clientWidth at 305 / 375 / 753 / 1009 / 1425 after scrollbar. Desktop 1363: document width 1348. |
+| Hero | Inspected desktop, 320, 390 and 768; two-line headline, visible primary action, distinct subject/text layers. |
+| Matter selection | Keyboard activation changes panel copy and pressed state. Dialog matter selection synchronizes with page. |
+| Preparation modal | Checklist controls change count; Escape restores trigger; explicit Tab and Shift+Tab wrap between Close and View text version. Mobile viewport supports scrolling. |
+| Mobile menu | Opens with aria-expanded=true; Escape closes/restores focus; Questions anchor closes menu and navigates. |
+| FAQ | Native details opened by Enter; DOM confirms open=true and answer visible. |
+| Pause | Toggle updates pressed=true and paused label; GSAP/Lenis cleanup and static artwork used. |
+| Console | Final observed errors belong to browser-extension metadata collection. Intermediate missing-module HMR errors resolved after all files existed and a reload. |
+| Visual evidence | `verification/redesign-desktop.jpg`, `verification/redesign-mobile.jpg`; saved normal viewport bytes, mobile screenshot cropped to its actual iframe. |
 
-- Production Vite build passes.
-- Desktop and mobile have no horizontal overflow at the inspected widths.
-- Hero/legal heading stays clear of the control card; courthouse proportions follow the source object stage.
-- Process courthouse is separated from its readout on desktop and mobile.
-- Matter selection updates both selectors and the drawer; selected control retains keyboard focus.
-- Review/Strategy/Representation controls update the process readout.
-- Header anchors navigate to their sections; persistent particles span the page.
-- Preparation drawer opens, contains the three native checklist controls, and shows their count. Download produces the local preparation brief and a visible status.
-- Escape closes the drawer and restores focus. Tab from the final download control wraps to Close; mobile panel and download control fit within the viewport.
-- Motion pause toggles its pressed state. Reduced-motion support and no-WebGL artwork fallback are implemented.
-- No invented law-firm credentials, results, pricing, guarantees or intake submission. Demonstration identity is disclosed.
+## Improvements verified in this pass
 
-## Fixes from review
+- Product/swatches/cart vocabulary and repeated decorative object collection removed.
+- Copy rewritten around record, situation, questions, preparation and next steps.
+- One semantic H1 and restrained editorial scale; body copy no longer occupies detached floating strips.
+- Deep background continues beneath content instead of alternating to ecommerce ivory.
+- Native modal, usable menu, real accordion and honest downloaded checklist preserve practical functionality.
+- Unsupported/reduced-motion devices do not load the heavy 3D renderer module; photograph remains visible on renderer failure.
+- Historical store CSS/model/asset and 51 unused packages removed.
 
-Longer legal hero text initially crowded the card; its second line and object proportions were adjusted. Process artwork initially approached the readout; a bounded core height now preserves separation. Matter controls initially remounted on selection; the selector is now a stable component. Development hot reload now reuses the React root.
+## Limits and outstanding work
 
-## Limitations
+This browser lacks usable WebGL2; it verifies the image fallback, not live GPU pixels. Device frame-time, memory, touch behavior and Lighthouse/Core Web Vitals were not measured. No production deployment was made in this pass. Verified firm/attorney details, jurisdiction and secure consultation routing must be provided before launch as a real firm. A fictional photograph and polished typography are not evidence of professional credentials.
 
-The cloud browser lacks WebGL2, so it exercised the generated artwork fallback. The original live R3F model compiles, but lighting, pointer rotation and exploded layers need verification on a GPU-enabled device. This is not a performance audit across devices, a pixel-identical promise, or a verified real firm's live intake. No production deployment was made during this task. Real firm details and a secure contact destination are needed before launch.
+Full-page and clipped screenshot calls timed out; normal viewport captures worked. Blob/data-URI download capture timed out; normal static file download succeeded after the implementation changed. These failures are recorded in README to avoid repeating them.

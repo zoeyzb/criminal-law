@@ -6,18 +6,17 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
-    "preview": "vite preview --host 0.0.0.0"
+    "preview": "vite preview --host 0.0.0.0",
+    "predev": "node scripts/generate-checklists.mjs",
+    "prebuild": "node scripts/generate-checklists.mjs",
+    "test": "node --test",
+    "pretest": "node scripts/generate-checklists.mjs"
   },
   "dependencies": {
-    "@hugeicons/core-free-icons": "^4.3.5",
-    "@hugeicons/react": "^1.1.10",
-    "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.1",
     "gsap": "^3.15.0",
     "lenis": "^1.3.26",
-    "maath": "^0.10.8",
     "motion": "^13.4.4",
-    "ogl": "^1.0.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "three": "^0.186.1"
