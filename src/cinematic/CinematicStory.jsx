@@ -4,7 +4,9 @@ import {compactStages,filmScenes} from './story.js';
 function SceneCopy({scene,index}){
   return <div className={'film-copy film-copy--'+scene.id} data-film-copy={index}>
     <span>{scene.eyebrow}</span>
-    <h1>{index===0?<>When everything changes,<br/><em>clarity matters.</em></>:scene.title}</h1>
+    {index===0
+      ? <h1>When everything changes,<br/><em>clarity matters.</em></h1>
+      : <h2>{scene.title}</h2>}
     <p>{scene.line}</p>
   </div>;
 }
