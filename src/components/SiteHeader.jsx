@@ -30,12 +30,12 @@ export default function SiteHeader({onPrepare}) {
   return <header className={'site-header'+(scrolled?' is-scrolled':'')}>
     <a className="wordmark" href="#top" aria-label="Law Your Way home">LAW YOUR WAY<span>CRIMINAL DEFENSE</span></a>
     <nav aria-label="Main navigation" className="desktop-nav">
-      <a href="#approach">Approach</a>
+      <a href="#approach">Story</a>
       <a href="#situation">Your position</a>
       <a href="#preparation">Preparation</a>
       <a href="#questions">Questions</a>
     </nav>
-    <button className="header-action" onClick={prepare}>Prepare your brief <Arrow/></button>
+    <button className="header-action" onClick={prepare}>Prepare your case <Arrow/></button>
     <button ref={trigger} className="menu-button" aria-expanded={menuOpen} aria-controls="mobile-menu" onClick={()=>setMenuOpen(value=>!value)}>
       {menuOpen?'Close':'Menu'} <span aria-hidden="true">{menuOpen?'×':'+'}</span>
     </button>
@@ -44,7 +44,7 @@ export default function SiteHeader({onPrepare}) {
       <a onClick={close} href="#situation">Your position</a>
       <a onClick={close} href="#preparation">Preparation</a>
       <a onClick={close} href="#questions">Questions</a>
-      <button onClick={prepare}>Prepare your brief <Arrow/></button>
+      <button onClick={prepare}>Prepare your case <Arrow/></button>
     </nav>
   </header>;
 }
