@@ -76,3 +76,8 @@ Live GPU pixels, real touch-device performance, Lighthouse, production deploymen
 Inspect the pushed commit/deployment before further edits. Verify the R3F layer on a GPU-enabled desktop and one real mobile device. Then add supplied, verified firm information and an approved secure consultation destination. Preserve accessible navigation/checklist behavior. Do not fabricate team members, wins, testimonials, contact addresses or production test results.
 
 Code publication to `zoeyzb/criminal-law/main` is authorized. Do not modify `zoeyzb/law` or `zoeyzb/aegis-trading`. No production deployment is claimed for this redesign.
+
+
+## Deployment trigger
+
+Latest spatial redesign is committed on `main`; this documentation touch intentionally triggers Vercel to rebuild the current branch head.
