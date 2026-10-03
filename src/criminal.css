@@ -326,3 +326,102 @@ img{display:block;max-width:100%}
 .motion-paused .film-pin,.motion-paused .prep-film__pin{position:relative;height:auto;min-height:0;padding-block:120px}
 .motion-paused .film-copy,.motion-paused .film-stages,.motion-paused .prep-film__shots article,.motion-paused .prep-film__cta{opacity:1!important;visibility:visible!important;transform:none!important;position:relative!important;inset:auto!important;pointer-events:auto!important}
 .motion-paused .film-copy{margin-bottom:110px}
+
+
+/* ===== CINEMATIC CONTINUOUS-ENVIRONMENT PASS v3 ===== */
+.cinematic-site{background:transparent}
+.ambient-world{z-index:-4;background:#020304}
+.master-courtroom{position:absolute;inset:-6%;overflow:hidden}
+.master-courtroom__image{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 48%;
+  filter:brightness(.34) saturate(.58) contrast(1.12);
+  transform:scale(1);transform-origin:62% 48%;will-change:transform;
+}
+.master-courtroom__depth{position:absolute;inset:0;background:
+  radial-gradient(circle at 64% 47%,transparent 0 12%,#02030418 30%,#020304a8 74%,#020304e8 100%)}
+.master-courtroom__shade{position:absolute;inset:0;opacity:.72;background:
+  linear-gradient(90deg,#020304f2 0 22%,#020304a8 36%,#02030442 58%,#020304a8 100%),
+  linear-gradient(0deg,#020304cb 0 7%,transparent 34%,#02030468 100%)}
+.master-courtroom__light{position:absolute;right:7%;top:7%;width:54%;height:80%;opacity:.22;filter:blur(18px);
+  background:linear-gradient(140deg,transparent 8%,#d0a56f18 38%,#d7ad792c 50%,transparent 72%);
+  clip-path:polygon(22% 0,100% 0,76% 100%,0 100%)}
+.film,.prep-film,.compact-faq,.film-exit{background:transparent!important}
+.film-pin,.prep-film__pin{background:transparent!important}
+.film-world,.film-exit__world{display:none!important}
+
+/* same environment, scene cues rather than fake figures */
+.film-depth-guides{position:absolute;inset:0;z-index:3;pointer-events:none}
+.film-depth-guides i{position:absolute;left:44%;right:7%;height:1px;transform:scaleX(.15);transform-origin:left center;opacity:0;
+  background:linear-gradient(90deg,#b58b625e,transparent)}
+.film-depth-guides i:nth-child(1){top:34%}
+.film-depth-guides i:nth-child(2){top:50%}
+.film-depth-guides i:nth-child(3){top:66%}
+
+.film-copy{max-width:720px}
+.film-copy :is(h1,h2){text-shadow:0 18px 70px #000}
+.film-copy p{color:#c6c8c7;font-size:14px;letter-spacing:.05em}
+.film-progress{opacity:.72}
+
+/* case position becomes an editorial rail, not cards */
+.film-stages{grid-template-columns:.52fr 1.48fr;gap:64px;align-items:center}
+.film-stages__intro p{margin-top:18px;max-width:300px;color:#8f989d;font-size:12px;line-height:1.6}
+.stage-rail{border-top:1px solid #ffffff22}
+.stage-rail>button{
+  width:100%;display:grid;grid-template-columns:54px 190px 1fr 24px;align-items:center;gap:18px;
+  min-height:104px;padding:20px 8px;background:linear-gradient(90deg,transparent,#06090b66);
+  border-bottom:1px solid #ffffff18;text-align:left;transition:background .24s,transform .24s,border-color .24s;
+}
+.stage-rail>button:hover,.stage-rail>button.is-active{background:linear-gradient(90deg,#b58b620f,#0d1317cc);border-color:#b58b624d}
+.stage-rail>button.is-active{transform:translateX(8px)}
+.stage-rail__number{font-family:var(--serif);font-size:20px;color:#70787d}
+.stage-rail__title strong{display:block;font-family:var(--serif);font-weight:400;font-size:26px}
+.stage-rail__title small{display:block;margin-top:7px;color:#7d878c;text-transform:uppercase;letter-spacing:.13em;font-size:8px}
+.stage-rail__detail{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:18px;opacity:.45;transition:opacity .25s}
+.stage-rail>button.is-active .stage-rail__detail{opacity:1}
+.stage-rail__detail span{font-size:10px;line-height:1.45;color:#b0b6b8}
+.stage-rail__detail span:first-child{color:#d6c2ad}
+.stage-rail__arrow{font-size:12px;color:#977657}
+
+/* preparation: keep courtroom underneath, real photographic case documents float above it */
+.prep-film__pin:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#020304ef 0 31%,#0203049e 46%,#02030447 75%,#0203049b 100%)}
+.case-photo{
+  position:absolute;right:5.5%;top:18%;width:min(48vw,710px);height:64%;opacity:0;transform:scale(.965);
+  overflow:hidden;border:1px solid #ffffff1b;box-shadow:0 40px 120px #000b;
+  will-change:transform,opacity;
+}
+.case-photo img{width:100%;height:100%;object-fit:cover;object-position:center 52%;filter:brightness(.62) saturate(.52) contrast(1.08);will-change:transform}
+.case-photo__shade{position:absolute;inset:0;background:linear-gradient(90deg,#02030472,transparent 38%),linear-gradient(0deg,#02030495,transparent 36%)}
+.case-photo__frame{position:absolute;inset:7%;border:1px solid #c49a6d27;box-shadow:inset 0 0 80px #0005}
+.prep-film__visual{display:none!important}
+.prep-film__lead{max-width:690px}
+.prep-film__lead h2{font-size:clamp(52px,5.2vw,82px);max-width:690px}
+.prep-film__shots{width:560px}
+.prep-film__shots h3{font-size:40px}
+.prep-film__shots p{color:#aeb3b4}
+.prep-film__cta{z-index:10}
+
+/* FAQ and exit continue over same courtroom instead of resetting to black */
+.compact-faq{position:relative}
+.compact-faq:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#020304ef 0 32%,#020304c7 58%,#020304a8 100%);z-index:-1}
+.film-exit:before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#020304f1 0 28%,#02030488 62%,#020304b5 100%);z-index:0}
+.film-exit__copy{position:relative;z-index:2}
+.site-footer{position:relative;background:#05080bcf;backdrop-filter:blur(10px)}
+
+@media(max-width:1000px){
+  .film-stages{grid-template-columns:1fr;align-content:end}
+  .stage-rail>button{grid-template-columns:46px 180px 1fr 20px}
+  .stage-rail__detail{grid-template-columns:1fr;gap:4px}
+  .case-photo{right:-4%;width:56vw}
+}
+@media(max-width:767px){
+  .master-courtroom{inset:0 -58% 0 -15%}
+  .master-courtroom__image{object-position:66% center;filter:brightness(.27) saturate(.52)}
+  .master-courtroom__shade{background:linear-gradient(90deg,#020304f2 0 42%,#0203047c 78%,#020304bd 100%)}
+  .film-depth-guides{display:none}
+  .stage-rail>button{grid-template-columns:36px 1fr 20px;min-height:100px}
+  .stage-rail__detail{grid-column:2/4;margin-top:10px;opacity:1}
+  .stage-rail__arrow{grid-column:3;grid-row:1}
+  .case-photo{position:relative;right:auto;top:auto;width:calc(100% - 36px);height:340px;margin:330px auto 0;opacity:.62!important;transform:none!important}
+  .prep-film__pin:before{background:linear-gradient(#020304d9,#020304ae)}
+  .prep-film__lead h2{font-size:48px}
+}
