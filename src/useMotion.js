@@ -56,7 +56,7 @@ export default function useMotion(root,paused){
         .to('.scene-witness__person',{xPercent:-10,scale:1.04,duration:.38},2.15)
         .to(copies[3],{autoAlpha:0,y:-24,duration:.2},2.44)
         .to('.scene-witness',{autoAlpha:.24,xPercent:-18,duration:.34},2.5)
-        .to('.film-stages',{autoAlpha:1,y:0,duration:.42},2.58)
+        .to('.film-stages',{autoAlpha:1,y:0,pointerEvents:'auto',duration:.42},2.58)
         .to('.film-primary',{autoAlpha:0,y:16,duration:.18},2.52);
 
       const prep=gsap.timeline({
@@ -82,7 +82,7 @@ export default function useMotion(root,paused){
         .to('.prep-film__conversation',{autoAlpha:0,xPercent:-24,duration:.3},1.32)
         .to('.prep-film__door',{autoAlpha:1,scale:1,duration:.4},1.38)
         .to(shots[2],{autoAlpha:1,y:0,duration:.3},1.42)
-        .to('.prep-film__cta',{autoAlpha:1,y:0,duration:.3},1.68);
+        .to('.prep-film__cta',{autoAlpha:1,y:0,pointerEvents:'auto',duration:.3},1.68);
 
       gsap.fromTo('.film-exit__world img',{scale:1.1},{scale:1,ease:'none',scrollTrigger:{trigger:'.film-exit',start:'top bottom',end:'bottom bottom',scrub:.6}});
       gsap.fromTo('.film-exit__copy',{y:60,opacity:0},{y:0,opacity:1,scrollTrigger:{trigger:'.film-exit',start:'top 72%',end:'center 58%',scrub:.5}});
