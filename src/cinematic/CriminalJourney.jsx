@@ -24,7 +24,7 @@ export default function CriminalJourney({onPrepare,matterIndex,onMatterChange,pa
   const [openFaq,setOpenFaq]=useState(0);
   return <div className="journey" id="approach">
     <section className="journey-chapter journey-chapter--hero" data-journey-chapter="0">
-      <HeroDepthScene paused={paused}/>
+      <div className="hero-depth-scene-wrap"><HeroDepthScene paused={paused}/></div>
       <div className="glow-path" aria-hidden="true"><i/><i/><i/></div>
       <div className="container hero-grid">
         <div className="chapter-copy chapter-copy--left">
