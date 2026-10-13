@@ -3,7 +3,7 @@ import HeroDepthScene from '../components/HeroDepthScene.jsx';
 import {faqs} from '../content.js';
 
 const PAPER_PHOTO='https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&dpr=1&w=1600';
-const LAWYER_PHOTO='https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&dpr=1&w=1600';
+const LAWYER_PHOTO='https://images.pexels.com/photos/7841443/pexels-photo-7841443.jpeg?auto=compress&dpr=1&w=1600';
 
 const practices=[
   ['Misdemeanor & Felony','Defense'],
