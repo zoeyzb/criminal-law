@@ -3,8 +3,10 @@ import CriminalJourney from '../cinematic/CriminalJourney.jsx';
 import {faqs} from '../content.js';
 
 const HERO='/judicial-passage.webp';
+const OFFICE='https://images.pexels.com/photos/6077089/pexels-photo-6077089.jpeg?auto=compress&dpr=1&w=1600';
+const GAVEL='https://images.pexels.com/photos/5668484/pexels-photo-5668484.jpeg?auto=compress&dpr=1&w=1600';
 const DOCUMENTS='https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&dpr=1&w=1600';
-const COUNSEL='https://images.pexels.com/photos/7841443/pexels-photo-7841443.jpeg?auto=compress&dpr=1&w=1600';
+const COUNSEL='https://images.pexels.com/photos/5668791/pexels-photo-5668791.jpeg?auto=compress&dpr=1&w=1600';
 
 const practices=[
   ['Misdemeanor & Felony Defense','Serious charges require immediate control of the record, deadlines, and defense strategy.'],
@@ -41,14 +43,13 @@ export function PracticeAreasPage({onPrepare}){
   return <>
     <PageHero eyebrow="PRACTICE AREAS" title="Focused defense for" accent="high-stakes charges." copy="A serious criminal-defense website should make it immediately clear where the firm can help — without making clients hunt through walls of text."/>
     <section className="page-section page-section--light">
-      <div className="container page-intro-grid">
-        <div><span className="eyebrow">WHAT WE HANDLE</span><h2>Clear categories. Serious attention.</h2></div>
-        <p>Each matter begins with the same priorities: understand the record, identify the immediate risk, and preserve the decisions that still remain open.</p>
-      </div>
-      <div className="container practice-page-grid">
-        {practices.map(([title,copy],i)=><article key={title}>
-          <span>0{i+1}</span><h3>{title}</h3><p>{copy}</p><button onClick={onPrepare}>Prepare for a consultation <b>→</b></button>
-        </article>)}
+      <div className="container practice-editorial">
+        <div className="practice-editorial__lead"><span className="eyebrow">WHAT WE HANDLE</span><h2>Clear categories. Serious attention.</h2><p>Clients should know immediately whether the firm handles the problem in front of them.</p></div>
+        <div className="practice-editorial__list">
+          {practices.map(([title,copy],i)=><article key={title}>
+            <span>0{i+1}</span><h3>{title}</h3><p>{copy}</p><button onClick={onPrepare}>Prepare for a consultation <b>→</b></button>
+          </article>)}
+        </div>
       </div>
     </section>
   </>;
@@ -82,7 +83,7 @@ export function CaseStagesPage({matterIndex,onMatterChange,onPrepare}){
 
 export function AboutPage(){
   return <>
-    <PageHero eyebrow="OUR APPROACH" title="Serious counsel." accent="No theatre." copy="Trust is built before the argument begins: by listening carefully, preparing thoroughly, and communicating clearly." image={COUNSEL}/>
+    <PageHero eyebrow="OUR APPROACH" title="Serious counsel." accent="No theatre." copy="Trust is built before the argument begins: by listening carefully, preparing thoroughly, and communicating clearly." image={OFFICE}/>
     <section className="page-section page-section--light">
       <div className="container about-editorial">
         <div><span className="eyebrow">HOW THE WORK SHOULD FEEL</span><h2>Calm in the room.<br/>Pressure on the problem.</h2></div>
@@ -115,7 +116,7 @@ export function QuestionsPage(){
 
 export function ContactPage({onPrepare}){
   return <>
-    <PageHero eyebrow="CONTACT" title="Start with a" accent="clear first step." copy="Before any consultation, put the timeline, documents, and questions in order so the conversation begins with substance."/>
+    <PageHero eyebrow="CONTACT" title="Start with a" accent="clear first step." copy="Before any consultation, put the timeline, documents, and questions in order so the conversation begins with substance." image={GAVEL}/>
     <section className="page-section contact-page">
       <div className="container contact-page__grid">
         <div className="contact-page__card">
