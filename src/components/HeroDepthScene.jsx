@@ -7,11 +7,11 @@ function Gavel(){
   useFrame(({pointer},delta)=>{
     if(!group.current)return;
     const k=Math.min(delta*2,1);
-    group.current.rotation.y+=(pointer.x*.045-group.current.rotation.y)*k;
-    group.current.rotation.x+=(-pointer.y*.018-group.current.rotation.x)*k;
+    group.current.rotation.y+=(-.18+pointer.x*.025-group.current.rotation.y)*k;
+    group.current.rotation.x+=(.08-pointer.y*.012-group.current.rotation.x)*k;
   });
 
-  return <group ref={group} rotation={[.16,-.20,-.27]} position={[1.58,-1.08,.05]}>
+  return <group ref={group} rotation={[.08,-.18,-.36]} position={[.72,-.42,.10]} scale={.86}>
     <mesh rotation={[0,0,Math.PI/2]} position={[.08,0,0]}>
       <cylinderGeometry args={[.19,.26,2.78,64]}/>
       <meshPhysicalMaterial color="#3b1d10" roughness={.28} metalness={.03} clearcoat={.62} clearcoatRoughness={.22}/>
