@@ -33,7 +33,7 @@ function App(){
       <a className="skip-link" href="#approach">Skip to story</a>
       <SiteHeader onPrepare={showPreparation}/>
       <main id="top">
-        <CriminalJourney onPrepare={showPreparation} matterIndex={matterIndex} onMatterChange={setMatterIndex}/>
+        <CriminalJourney onPrepare={showPreparation} matterIndex={matterIndex} onMatterChange={setMatterIndex} paused={paused}/>
       </main>
       <footer className="site-footer container">
         <div className="footer-top">
