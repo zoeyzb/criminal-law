@@ -1,8 +1,14 @@
 import {useEffect,useRef,useState} from 'react';
 
-const Arrow=()=> <span aria-hidden="true">→</span>;
+const nav=[
+  ['home','/','Home'],
+  ['practice','/practice-areas','Practice Areas'],
+  ['stages','/case-stages','Case Stages'],
+  ['about','/about','About'],
+  ['questions','/questions','Questions']
+];
 
-export default function SiteHeader({onPrepare}) {
+export default function SiteHeader({onPrepare,route}) {
   const [menuOpen,setMenuOpen]=useState(false);
   const [scrolled,setScrolled]=useState(false);
   const trigger=useRef(null);
@@ -25,36 +31,25 @@ export default function SiteHeader({onPrepare}) {
     return()=>document.removeEventListener('keydown',onKey);
   },[menuOpen]);
 
-  const prepare=()=>{setMenuOpen(false);onPrepare();};
-  const close=()=>setMenuOpen(false);
-
   return <header className={'site-header'+(scrolled?' is-scrolled':'')}>
-    <a className="wordmark" href="#top" aria-label="Law Your Way home">
+    <a className="wordmark" href="/" aria-label="Law Your Way home">
       <span className="wordmark-mark" aria-hidden="true">LYW</span>
       <span className="wordmark-copy">LAW YOUR WAY<small>CRIMINAL DEFENSE</small></span>
     </a>
 
     <nav aria-label="Main navigation" className="desktop-nav">
-      <a href="#top">Home</a>
-      <a href="#practice">Practice Areas</a>
-      <a href="#situation">Case Stages</a>
-      <a href="#preparation">Approach</a>
-      <a href="#questions">Questions</a>
+      {nav.map(([key,href,label])=><a className={route===key?'is-active':''} key={key} href={href}>{label}</a>)}
     </nav>
 
-    <button className="header-action" onClick={prepare}>Free Consultation <Arrow/></button>
+    <a className="header-action" href="/contact">Free Consultation <span aria-hidden="true">→</span></a>
 
     <button ref={trigger} className="menu-button" aria-expanded={menuOpen} aria-controls="mobile-menu" onClick={()=>setMenuOpen(value=>!value)}>
       {menuOpen?'Close':'Menu'} <span aria-hidden="true">{menuOpen?'×':'+'}</span>
     </button>
 
     <nav id="mobile-menu" aria-label="Mobile navigation" className={'mobile-menu'+(menuOpen?' is-open':'')} hidden={!menuOpen}>
-      <a onClick={close} href="#top">Home</a>
-      <a onClick={close} href="#practice">Practice Areas</a>
-      <a onClick={close} href="#situation">Case Stages</a>
-      <a onClick={close} href="#preparation">Approach</a>
-      <a onClick={close} href="#questions">Questions</a>
-      <button onClick={prepare}>Free Consultation <Arrow/></button>
+      {nav.map(([key,href,label])=><a className={route===key?'is-active':''} key={key} href={href}>{label}</a>)}
+      <a href="/contact">Contact</a>
     </nav>
   </header>;
 }
