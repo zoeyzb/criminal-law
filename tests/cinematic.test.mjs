@@ -27,7 +27,7 @@ test('site is genuinely multi-page',async()=>{
 test('home uses photographic foreground depth instead of a cartoon gavel',async()=>{
   const journey=await readFile(new URL('../src/cinematic/CriminalJourney.jsx',import.meta.url),'utf8');
   assert.match(journey,/hero-reference__object/);
-  assert.match(journey,/5668484/);
+  assert.match(journey,/5668481/);
   assert.doesNotMatch(journey,/HeroDepthScene/);
   assert.match(journey,/Experienced/);
   assert.match(journey,/Criminal Defense/);

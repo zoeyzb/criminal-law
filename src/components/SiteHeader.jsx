@@ -5,7 +5,8 @@ const nav=[
   ['practice','/practice-areas','Practice Areas'],
   ['stages','/case-stages','Case Stages'],
   ['about','/about','About'],
-  ['questions','/questions','Questions']
+  ['questions','/questions','Questions'],
+  ['contact','/contact','Contact']
 ];
 
 export default function SiteHeader({onPrepare,route}) {
