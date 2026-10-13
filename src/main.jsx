@@ -4,9 +4,18 @@ import {MotionConfig} from 'motion/react';
 import PreparationDialog from './components/PreparationDialog.jsx';
 import AmbientBackdrop from './components/AmbientBackdrop.jsx';
 import SiteHeader from './components/SiteHeader.jsx';
-import CriminalJourney from './cinematic/CriminalJourney.jsx';
 import useMotion from './useMotion.js';
+import {HomePage,PracticeAreasPage,CaseStagesPage,AboutPage,QuestionsPage,ContactPage} from './pages/SitePages.jsx';
 import './criminal.css';
+
+const routes={
+  '/':'home',
+  '/practice-areas':'practice',
+  '/case-stages':'stages',
+  '/about':'about',
+  '/questions':'questions',
+  '/contact':'contact'
+};
 
 function App(){
   const root=useRef(null);
@@ -15,6 +24,7 @@ function App(){
   const [checked,setChecked]=useState([false,false,false]);
   const [quiet,setQuiet]=useState(false);
   const [reduced,setReduced]=useState(()=>matchMedia('(prefers-reduced-motion: reduce)').matches);
+  const route=routes[window.location.pathname]||'home';
 
   useEffect(()=>{
     const media=matchMedia('(prefers-reduced-motion: reduce)');
@@ -27,21 +37,29 @@ function App(){
   useMotion(root,paused);
   const showPreparation=()=>setOpen(true);
 
+  let page=null;
+  if(route==='home')page=<HomePage onPrepare={showPreparation} matterIndex={matterIndex} onMatterChange={setMatterIndex} paused={paused}/>;
+  if(route==='practice')page=<PracticeAreasPage onPrepare={showPreparation}/>;
+  if(route==='stages')page=<CaseStagesPage matterIndex={matterIndex} onMatterChange={setMatterIndex} onPrepare={showPreparation}/>;
+  if(route==='about')page=<AboutPage/>;
+  if(route==='questions')page=<QuestionsPage/>;
+  if(route==='contact')page=<ContactPage onPrepare={showPreparation}/>;
+
   return <MotionConfig reducedMotion={paused?'always':'user'}>
     <div ref={root} className={'law-site'+(paused?' motion-paused':'')}>
       <AmbientBackdrop/>
-      <a className="skip-link" href="#approach">Skip to story</a>
-      <SiteHeader onPrepare={showPreparation}/>
-      <main id="top">
-        <CriminalJourney onPrepare={showPreparation} matterIndex={matterIndex} onMatterChange={setMatterIndex} paused={paused}/>
-      </main>
+      <a className="skip-link" href="#main">Skip to content</a>
+      <SiteHeader onPrepare={showPreparation} route={route}/>
+      <main id="main">{page}</main>
       <footer className="site-footer container">
         <div className="footer-top">
-          <a className="wordmark" href="#top">LAW YOUR WAY<span>CRIMINAL DEFENSE</span></a>
+          <a className="wordmark" href="/">LAW YOUR WAY<span>CRIMINAL DEFENSE</span></a>
           <div>
-            <a href="#approach">Story</a>
-            <a href="#situation">Your position</a>
-            <a href="#questions">Questions</a>
+            <a href="/practice-areas">Practice Areas</a>
+            <a href="/case-stages">Case Stages</a>
+            <a href="/about">About</a>
+            <a href="/questions">Questions</a>
+            <a href="/contact">Contact</a>
             <button className="text-button" aria-pressed={paused} disabled={reduced} onClick={()=>setQuiet(value=>!value)}>{paused?'Motion paused':'Pause motion'}</button>
           </div>
         </div>
