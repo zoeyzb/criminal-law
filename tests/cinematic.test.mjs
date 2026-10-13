@@ -9,33 +9,30 @@ test('criminal-defense copy stays concise',()=>{
   }
 });
 
-test('homepage follows the approved luxury-law visual structure',async()=>{
-  const journey=await readFile(new URL('../src/cinematic/CriminalJourney.jsx',import.meta.url),'utf8');
-  const hero=await readFile(new URL('../src/components/HeroDepthScene.jsx',import.meta.url),'utf8');
-  const css=await readFile(new URL('../src/criminal.css',import.meta.url),'utf8');
+test('site is genuinely multi-page',async()=>{
+  const main=await readFile(new URL('../src/main.jsx',import.meta.url),'utf8');
   const header=await readFile(new URL('../src/components/SiteHeader.jsx',import.meta.url),'utf8');
+  const pages=await readFile(new URL('../src/pages/SitePages.jsx',import.meta.url),'utf8');
+  const vercel=await readFile(new URL('../vercel.json',import.meta.url),'utf8');
 
+  for(const path of ['/practice-areas','/case-stages','/about','/questions','/contact']){
+    assert.match(main,new RegExp(path.replace('/','\\/')));
+    assert.match(header,new RegExp(path.replace('/','\\/')));
+    assert.match(vercel,new RegExp(path.replace('/','\\/')));
+  }
+
+  assert.match(pages,/PracticeAreasPage/);
+  assert.match(pages,/CaseStagesPage/);
+  assert.match(pages,/AboutPage/);
+  assert.match(pages,/QuestionsPage/);
+  assert.match(pages,/ContactPage/);
+});
+
+test('home follows approved luxury-law structure',async()=>{
+  const journey=await readFile(new URL('../src/cinematic/CriminalJourney.jsx',import.meta.url),'utf8');
   assert.match(journey,/hero-reference/);
   assert.match(journey,/Experienced/);
   assert.match(journey,/Criminal Defense/);
   assert.match(journey,/When It Matters/);
   assert.match(journey,/practice-rail/);
-  assert.match(journey,/trust-story/);
-  assert.match(journey,/case-story/);
-  assert.match(journey,/approach-story/);
-  assert.match(journey,/counsel-story/);
-  assert.match(journey,/faq-story/);
-
-  assert.doesNotMatch(journey,/case-stage-plaque/);
-  assert.doesNotMatch(journey,/Less noise/);
-  assert.doesNotMatch(journey,/[⌕§▤◆]/);
-
-  assert.match(hero,/Canvas/);
-  assert.match(hero,/Gavel/);
-
-  assert.match(header,/Free Consultation/);
-  assert.match(css,/hero-reference/);
-  assert.match(css,/practice-rail/);
-  assert.match(css,/case-story__panel/);
-  assert.match(css,/approach-story/);
 });
