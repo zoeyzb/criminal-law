@@ -1,4 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "ignoreCommand": "if [ \"$VERCEL_PROJECT_ID\" = \"prj_NppQMSFC3zYHJ8ZcxMDAS9J1E79s\" ]; then exit 0; else exit 1; fi"
+  "ignoreCommand": "if [ \"$VERCEL_PROJECT_ID\" = \"prj_NppQMSFC3zYHJ8ZcxMDAS9J1E79s\" ]; then exit 0; else exit 1; fi",
+  "rewrites": [
+    {"source": "/practice-areas", "destination": "/"},
+    {"source": "/case-stages", "destination": "/"},
+    {"source": "/about", "destination": "/"},
+    {"source": "/questions", "destination": "/"},
+    {"source": "/contact", "destination": "/"}
+  ]
 }
