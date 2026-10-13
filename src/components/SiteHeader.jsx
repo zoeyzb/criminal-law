@@ -8,11 +8,12 @@ export default function SiteHeader({onPrepare}) {
   const trigger=useRef(null);
 
   useEffect(()=>{
-    const onScroll=()=>setScrolled(window.scrollY>56);
+    const onScroll=()=>setScrolled(window.scrollY>64);
     onScroll();
     window.addEventListener('scroll',onScroll,{passive:true});
     return()=>window.removeEventListener('scroll',onScroll);
   },[]);
+
   useEffect(()=>{
     const onKey=event=>{
       if(event.key==='Escape'&&menuOpen){
@@ -28,7 +29,11 @@ export default function SiteHeader({onPrepare}) {
   const close=()=>setMenuOpen(false);
 
   return <header className={'site-header'+(scrolled?' is-scrolled':'')}>
-    <a className="wordmark" href="#top" aria-label="Law Your Way home"><i aria-hidden="true">▥</i><span className="wordmark-copy">LAW YOUR WAY<small>CRIMINAL DEFENSE</small></span></a>
+    <a className="wordmark" href="#top" aria-label="Law Your Way home">
+      <span className="wordmark-mark" aria-hidden="true">LYW</span>
+      <span className="wordmark-copy">LAW YOUR WAY<small>CRIMINAL DEFENSE</small></span>
+    </a>
+
     <nav aria-label="Main navigation" className="desktop-nav">
       <a href="#top">Home</a>
       <a href="#practice">Practice Areas</a>
@@ -36,10 +41,13 @@ export default function SiteHeader({onPrepare}) {
       <a href="#preparation">Approach</a>
       <a href="#questions">Questions</a>
     </nav>
+
     <button className="header-action" onClick={prepare}>Free Consultation <Arrow/></button>
+
     <button ref={trigger} className="menu-button" aria-expanded={menuOpen} aria-controls="mobile-menu" onClick={()=>setMenuOpen(value=>!value)}>
       {menuOpen?'Close':'Menu'} <span aria-hidden="true">{menuOpen?'×':'+'}</span>
     </button>
+
     <nav id="mobile-menu" aria-label="Mobile navigation" className={'mobile-menu'+(menuOpen?' is-open':'')} hidden={!menuOpen}>
       <a onClick={close} href="#top">Home</a>
       <a onClick={close} href="#practice">Practice Areas</a>
