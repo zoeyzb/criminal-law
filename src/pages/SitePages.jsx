@@ -3,10 +3,10 @@ import CriminalJourney from '../cinematic/CriminalJourney.jsx';
 import {faqs} from '../content.js';
 
 const HERO='/judicial-passage.webp';
-const OFFICE='https://images.pexels.com/photos/6077089/pexels-photo-6077089.jpeg?auto=compress&dpr=1&w=1600';
-const GAVEL='https://images.pexels.com/photos/5668484/pexels-photo-5668484.jpeg?auto=compress&dpr=1&w=1600';
-const DOCUMENTS='https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&dpr=1&w=1600';
-const COUNSEL='https://images.pexels.com/photos/5668791/pexels-photo-5668791.jpeg?auto=compress&dpr=1&w=1600';
+const LADY='https://images.pexels.com/photos/6077123/pexels-photo-6077123.jpeg?auto=compress&dpr=1&w=1800';
+const OFFICE='https://images.pexels.com/photos/6077089/pexels-photo-6077089.jpeg?auto=compress&dpr=1&w=1800';
+const GAVEL='https://images.pexels.com/photos/5668481/pexels-photo-5668481.jpeg?auto=compress&dpr=1&w=1800';
+const DOCUMENTS='https://images.pexels.com/photos/6077326/pexels-photo-6077326.jpeg?auto=compress&dpr=1&w=1800';
 
 const practices=[
   ['Misdemeanor & Felony Defense','Serious charges require immediate control of the record, deadlines, and defense strategy.'],
@@ -14,7 +14,7 @@ const practices=[
   ['White Collar & Fraud','Complex allegations demand discreet preparation and careful document review.'],
   ['Domestic Violence Defense','High-stakes allegations require privacy, speed, and disciplined communication.'],
   ['Juvenile Defense','Early decisions can shape a young person’s future long after the case ends.'],
-  ['Record Sealing','Where available, clearing the record can help restore practical opportunities.']
+  ['Other Criminal Charges','Start by clarifying the accusation, the immediate risk, and the next deadline.']
 ];
 
 const stages=[
@@ -23,33 +23,30 @@ const stages=[
   ['03','Review','After a decision','Start with the ruling, record, and every deadline attached to the next step.']
 ];
 
-function PageHero({eyebrow,title,accent,copy,image=HERO}){
-  return <section className="page-hero">
-    <img src={image} alt="" aria-hidden="true"/>
-    <div className="page-hero__shade"/>
-    <div className="container page-hero__content">
-      <span className="eyebrow">{eyebrow}</span>
-      <h1>{title}<br/><em>{accent}</em></h1>
-      <p>{copy}</p>
-    </div>
-  </section>;
-}
-
-export function HomePage(props){
-  return <CriminalJourney {...props}/>;
-}
+export function HomePage(props){ return <CriminalJourney {...props}/>; }
 
 export function PracticeAreasPage({onPrepare}){
   return <>
-    <PageHero eyebrow="PRACTICE AREAS" title="Focused defense for" accent="high-stakes charges." copy="A serious criminal-defense website should make it immediately clear where the firm can help — without making clients hunt through walls of text."/>
-    <section className="page-section page-section--light">
-      <div className="container practice-editorial">
-        <div className="practice-editorial__lead"><span className="eyebrow">WHAT WE HANDLE</span><h2>Clear categories. Serious attention.</h2><p>Clients should know immediately whether the firm handles the problem in front of them.</p></div>
-        <div className="practice-editorial__list">
-          {practices.map(([title,copy],i)=><article key={title}>
-            <span>0{i+1}</span><h3>{title}</h3><p>{copy}</p><button onClick={onPrepare}>Prepare for a consultation <b>→</b></button>
-          </article>)}
-        </div>
+    <section className="practice-hero-scene">
+      <img src={LADY} alt="" aria-hidden="true"/>
+      <div className="scene-shade"/>
+      <div className="container practice-hero-scene__copy">
+        <span className="eyebrow">PRACTICE AREAS</span>
+        <h1>Defense Tailored<br/><em>to the Charge.</em></h1>
+        <p>Focused criminal defense across the matters that can put freedom, reputation, and future opportunities at risk.</p>
+        <button className="button primary" onClick={onPrepare}>Start with your situation <b>→</b></button>
+      </div>
+    </section>
+
+    <section className="practice-dark">
+      <div className="container practice-dark__head">
+        <div><span className="eyebrow">COMPREHENSIVE DEFENSE</span><h2>Clear focus for serious charges.</h2></div>
+        <p>No wall of legal jargon. Find the issue closest to yours, then start with the facts and deadlines that matter first.</p>
+      </div>
+      <div className="container practice-dark__grid">
+        {practices.map(([title,copy],i)=><article key={title}>
+          <span>0{i+1}</span><h3>{title}</h3><p>{copy}</p><button onClick={onPrepare}>Prepare for a consultation <b>→</b></button>
+        </article>)}
       </div>
     </section>
   </>;
@@ -57,23 +54,27 @@ export function PracticeAreasPage({onPrepare}){
 
 export function CaseStagesPage({matterIndex,onMatterChange,onPrepare}){
   return <>
-    <PageHero eyebrow="CASE STAGES" title="Know where the" accent="case stands." copy="The pressure changes at each stage. The need for clear timing, documents, and decisions does not."/>
-    <section className="page-section case-stage-page">
-      <div className="container case-stage-page__grid">
-        <div className="case-stage-page__nav">
-          {stages.map((s,i)=><button key={s[1]} className={matterIndex===i?'is-active':''} onClick={()=>onMatterChange(i)}>
-            <span>{s[0]}</span><div><strong>{s[1]}</strong><small>{s[2]}</small></div><b>→</b>
-          </button>)}
-        </div>
-        <div className="case-stage-page__detail">
-          <span className="case-stage-page__number">{stages[matterIndex][0]}</span>
-          <span className="eyebrow">{stages[matterIndex][2]}</span>
-          <h2>{stages[matterIndex][1]}</h2>
-          <p>{stages[matterIndex][3]}</p>
-          <div className="case-stage-page__check">
-            <strong>Bring into focus</strong>
-            <span>Dates and deadlines</span><span>Notices and correspondence</span><span>Documents and evidence</span><span>Questions that still need answers</span>
-          </div>
+    <section className="stages-hero-scene">
+      <img src={HERO} alt="" aria-hidden="true"/>
+      <div className="scene-shade"/>
+      <div className="container stages-hero-scene__head">
+        <span className="eyebrow">YOUR CASE. A CLEAR PATH FORWARD.</span>
+        <h1>Know Where<br/><em>Your Case Stands.</em></h1>
+        <p>Three moments. Clear next steps.</p>
+      </div>
+      <div className="container stages-hero-cards" role="group" aria-label="Case stage">
+        {stages.map((s,i)=><button key={s[1]} className={matterIndex===i?'is-active':''} onClick={()=>onMatterChange(i)}>
+          <span>{s[0]}</span><small>{s[2]}</small><strong>{s[1]}</strong><p>{s[3]}</p><b>→</b>
+        </button>)}
+      </div>
+    </section>
+
+    <section className="stage-guidance">
+      <div className="container stage-guidance__grid">
+        <div><span className="eyebrow">THE CURRENT STAGE</span><h2>{stages[matterIndex][1]}</h2><p>{stages[matterIndex][3]}</p></div>
+        <div className="stage-guidance__check">
+          <span>Bring into focus</span>
+          <strong>Dates and deadlines</strong><strong>Notices and correspondence</strong><strong>Documents and evidence</strong><strong>Questions that still need answers</strong>
           <button className="button primary" onClick={onPrepare}>Prepare for this stage <b>→</b></button>
         </div>
       </div>
@@ -83,15 +84,22 @@ export function CaseStagesPage({matterIndex,onMatterChange,onPrepare}){
 
 export function AboutPage(){
   return <>
-    <PageHero eyebrow="OUR APPROACH" title="Serious counsel." accent="No theatre." copy="Trust is built before the argument begins: by listening carefully, preparing thoroughly, and communicating clearly." image={OFFICE}/>
-    <section className="page-section page-section--light">
-      <div className="container about-editorial">
-        <div><span className="eyebrow">HOW THE WORK SHOULD FEEL</span><h2>Calm in the room.<br/>Pressure on the problem.</h2></div>
-        <div className="about-editorial__points">
-          <article><span>01</span><h3>Discreet</h3><p>Privacy should be obvious from the first conversation.</p></article>
-          <article><span>02</span><h3>Prepared</h3><p>The record comes before performance, assumptions, or noise.</p></article>
-          <article><span>03</span><h3>Direct</h3><p>Clients should understand what matters now and what happens next.</p></article>
-        </div>
+    <section className="about-hero-scene">
+      <img src={OFFICE} alt="" aria-hidden="true"/>
+      <div className="scene-shade"/>
+      <div className="container about-hero-scene__copy">
+        <span className="eyebrow">OUR APPROACH</span>
+        <h1>Grounded Advice.<br/><em>Serious Defense.</em></h1>
+        <p>People first. Preparation before performance. Clear communication before uncertainty compounds.</p>
+      </div>
+    </section>
+    <section className="about-principles">
+      <div className="container about-principles__head"><span className="eyebrow">FOUR PRINCIPLES. ONE PURPOSE.</span><h2>Make the hard decisions easier to understand.</h2></div>
+      <div className="container about-principles__grid">
+        <article><span>01</span><h3>Clarity</h3><p>Separate what is known from what is assumed.</p></article>
+        <article><span>02</span><h3>Preparation</h3><p>Build the timeline and organize the record early.</p></article>
+        <article><span>03</span><h3>Strategy</h3><p>Focus on leverage, timing, uncertainty, and risk.</p></article>
+        <article><span>04</span><h3>Respect</h3><p>Treat the client’s life as more than a case file.</p></article>
       </div>
     </section>
   </>;
@@ -100,15 +108,24 @@ export function AboutPage(){
 export function QuestionsPage(){
   const [open,setOpen]=useState(0);
   return <>
-    <PageHero eyebrow="QUESTIONS" title="Know more before" accent="the first conversation." copy="Reduce uncertainty with practical answers about preparation, privacy, and what this website is designed to do." image={DOCUMENTS}/>
-    <section className="page-section questions-page">
-      <div className="container questions-page__grid">
-        <div><span className="eyebrow">COMMON QUESTIONS</span><h2>Straight answers.</h2><p>Short enough to read. Useful enough to act on.</p></div>
-        <div className="questions-page__list">
+    <section className="questions-hero-scene">
+      <img src={DOCUMENTS} alt="" aria-hidden="true"/>
+      <div className="scene-shade"/>
+      <div className="container questions-hero-scene__copy">
+        <span className="eyebrow">QUESTIONS BEFORE YOU CALL</span>
+        <h1>Get Informed<br/><em>Before You Call.</em></h1>
+        <p>Know what to bring, what this website does, and what the first conversation should accomplish.</p>
+      </div>
+    </section>
+    <section className="questions-dark">
+      <div className="container questions-dark__grid">
+        <div className="questions-dark__list">
+          <span className="eyebrow">STRAIGHT ANSWERS. REAL CLARITY.</span>
           {faqs.map((item,i)=><button key={item.question} className={open===i?'is-open':''} onClick={()=>setOpen(open===i?-1:i)}>
             <span>0{i+1}</span><strong>{item.question}</strong><b>{open===i?'−':'+'}</b>{open===i?<p>{item.answer}</p>:null}
           </button>)}
         </div>
+        <aside className="bring-card"><span className="eyebrow">PREPARE FIRST</span><h2>What to Bring to Your Consultation</h2><p>A useful first conversation starts with structure.</p><ol><li>A short timeline of events</li><li>Notices or correspondence</li><li>Upcoming dates or deadlines</li><li>Questions you need answered</li></ol></aside>
       </div>
     </section>
   </>;
@@ -116,20 +133,12 @@ export function QuestionsPage(){
 
 export function ContactPage({onPrepare}){
   return <>
-    <PageHero eyebrow="CONTACT" title="Start with a" accent="clear first step." copy="Before any consultation, put the timeline, documents, and questions in order so the conversation begins with substance." image={GAVEL}/>
-    <section className="page-section contact-page">
-      <div className="container contact-page__grid">
-        <div className="contact-page__card">
-          <span className="eyebrow">PREPARE FIRST</span>
-          <h2>Walk in ready.</h2>
-          <p>Create a private preparation checklist in this browser. Nothing is submitted through this demonstration site.</p>
-          <button className="button primary" onClick={onPrepare}>Create your checklist <b>→</b></button>
-        </div>
-        <div className="contact-page__aside">
-          <div><span>01</span><strong>Timeline</strong><p>Put the sequence of events in order.</p></div>
-          <div><span>02</span><strong>Documents</strong><p>Gather notices, correspondence, and case papers.</p></div>
-          <div><span>03</span><strong>Questions</strong><p>Write down what still needs a clear answer.</p></div>
-        </div>
+    <section className="contact-hero-scene">
+      <img src={GAVEL} alt="" aria-hidden="true"/>
+      <div className="scene-shade"/>
+      <div className="container contact-hero-scene__grid">
+        <div><span className="eyebrow">START THE CONVERSATION</span><h1>Start with<br/><em>Clarity.</em></h1><p>This demonstration site does not submit case enquiries. Use the private preparation tool to organize what you would want ready for a real consultation.</p></div>
+        <div className="contact-prep-card"><span className="eyebrow">PRIVATE PREPARATION</span><h2>Put your case in order first.</h2><p>Your checklist stays in this browser. Nothing is sent through this demonstration website.</p><button className="button primary" onClick={onPrepare}>Prepare Your Case <b>→</b></button></div>
       </div>
     </section>
   </>;
