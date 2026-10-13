@@ -9,7 +9,7 @@ test('criminal-defense copy stays concise',()=>{
   }
 });
 
-test('homepage uses a trust-first cinematic legal system',async()=>{
+test('homepage keeps one restrained 3d focal point and avoids cartoon law UI',async()=>{
   const main=await readFile(new URL('../src/main.jsx',import.meta.url),'utf8');
   const journey=await readFile(new URL('../src/cinematic/CriminalJourney.jsx',import.meta.url),'utf8');
   const hero=await readFile(new URL('../src/components/HeroDepthScene.jsx',import.meta.url),'utf8');
@@ -17,25 +17,27 @@ test('homepage uses a trust-first cinematic legal system',async()=>{
   const motion=await readFile(new URL('../src/useMotion.js',import.meta.url),'utf8');
 
   assert.match(main,/CriminalJourney/);
-  assert.match(journey,/hero-depth-scene/);
-  assert.match(journey,/trust-strip/);
-  assert.match(journey,/practice-grid/);
-  assert.match(journey,/case-stage-plaque/);
-  assert.match(journey,/Confidential & Discreet/);
-  assert.match(journey,/Strategic Advocacy/);
-  assert.match(journey,/Client-Focused/);
+  assert.match(journey,/hero-depth-scene-wrap/);
+  assert.match(journey,/practice-rail/);
+  assert.match(journey,/case-stage-editorial/);
+  assert.match(journey,/Confidential/);
+  assert.match(journey,/Strategic/);
+  assert.match(journey,/Responsive/);
+
+  assert.doesNotMatch(journey,/case-stage-plaque__icon/);
+  assert.doesNotMatch(journey,/[⌕§▤◆]/);
   assert.doesNotMatch(journey,/Less noise/);
 
   assert.match(hero,/Canvas/);
   assert.match(hero,/Gavel/);
-  assert.match(hero,/frameloop/);
+  assert.doesNotMatch(hero,/torusGeometry/);
 
-  assert.match(css,/glow-path/);
-  assert.match(css,/case-stage-plaque/);
   assert.match(css,/hero-depth-scene/);
+  assert.match(css,/practice-rail/);
+  assert.match(css,/case-stage-editorial/);
   assert.match(css,/perspective/);
 
   assert.match(motion,/master-courtroom__image/);
-  assert.match(motion,/case-stage-plaque/);
+  assert.match(motion,/case-stage-editorial/);
   assert.match(motion,/glow-path/);
 });
