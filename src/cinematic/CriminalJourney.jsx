@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {faqs} from '../content.js';
 
-const HERO_GAVEL='https://images.pexels.com/photos/5668484/pexels-photo-5668484.jpeg?auto=compress&dpr=1&w=1600';
+const HERO_GAVEL='https://images.pexels.com/photos/5668481/pexels-photo-5668481.jpeg?auto=compress&dpr=1&w=1600';
 const PAPER_PHOTO='https://images.pexels.com/photos/6077447/pexels-photo-6077447.jpeg?auto=compress&dpr=1&w=1600';
 
 const practices=[
@@ -9,7 +9,8 @@ const practices=[
   ['DUI & Traffic','Crimes'],
   ['White Collar','& Fraud'],
   ['Domestic Violence','Defense'],
-  ['Juvenile','Defense']
+  ['Juvenile','Defense'],
+  ['Other Criminal','Charges']
 ];
 
 const stages=[
@@ -32,11 +33,11 @@ export default function CriminalJourney({onPrepare,matterIndex,onMatterChange}){
         <div className="hero-reference__copy">
           <span className="eyebrow">YOUR RIGHTS. OUR FOCUS.</span>
           <h1>Experienced<br/>Criminal Defense<br/><em>When It Matters.</em></h1>
-          <p className="hero-reference__tag">Strategic. Thorough. Discreet.</p>
-          <p className="hero-reference__body">Serious criminal charges demand a defense built around the record, the timing, and the decisions that protect your future.</p>
+          <p className="hero-reference__tag">Strategic. Thorough. Relentless.</p>
+          <p className="hero-reference__body">When a criminal charge puts your freedom, reputation, or future at risk, the first move should be clear, private, and deliberate.</p>
           <div className="hero-actions">
             <button className="button primary" onClick={onPrepare}>Speak with an Attorney <b>→</b></button>
-            <a className="button secondary" href="/case-stages">Learn Our Approach <b>↘</b></a>
+            <a className="button secondary" href="/case-stages">Learn Our Approach</a>
           </div>
         </div>
       </div>
@@ -52,42 +53,48 @@ export default function CriminalJourney({onPrepare,matterIndex,onMatterChange}){
       </div>
     </section>
 
-    <section className="trust-story" data-journey-chapter="1">
-      <div className="container trust-story__grid">
-        <div className="trust-story__lead">
-          <span className="eyebrow">A DEFENSE SHOULD FEEL CONTROLLED</span>
-          <h2>Less uncertainty.<br/>More command of what happens next.</h2>
+    <section className="difference-story" data-journey-chapter="1">
+      <div className="container difference-story__grid">
+        <div className="difference-story__headline">
+          <span className="eyebrow">A HIGHER STANDARD OF DEFENSE</span>
+          <h2>More Than a Defense.<br/><em>A Different Approach.</em></h2>
         </div>
-        <div className="trust-story__points">
-          <article><span>01</span><h3>Private from the first conversation.</h3><p>Discretion is not a feature. It is the starting condition.</p></article>
-          <article><span>02</span><h3>Prepared before pressure.</h3><p>Dates, documents, evidence, and unanswered questions in one view.</p></article>
-          <article><span>03</span><h3>Clear about the next move.</h3><p>Know the decision in front of you, the timing, and who owns the next action.</p></article>
+        <div className="difference-story__body">
+          <p>A serious defense begins before anyone enters a courtroom. It starts with listening closely, organizing the record, identifying what is urgent, and making the next decision with a clear view of the risk.</p>
+          <a href="/about">How we approach a case <span>→</span></a>
+        </div>
+        <div className="difference-story__principles">
+          <div><span>01</span><strong>Private</strong><small>Discretion from the first conversation.</small></div>
+          <div><span>02</span><strong>Prepared</strong><small>The record before the rhetoric.</small></div>
+          <div><span>03</span><strong>Direct</strong><small>Clear answers and clear expectations.</small></div>
+          <div><span>04</span><strong>Responsive</strong><small>Attention when timing matters.</small></div>
         </div>
       </div>
     </section>
 
-    <section className="case-story" id="situation" data-journey-chapter="2">
-      <div className="container case-story__layout">
-        <div className="case-story__intro">
-          <span className="eyebrow">CASE STAGES</span>
-          <h2>Where does your case stand?</h2>
-          <p>Choose the stage closest to what is happening now.</p>
-          <div className="case-story__tabs" role="group" aria-label="Case stage">
-            {stages.map((stage,index)=><button key={stage.title} onClick={()=>onMatterChange(index)} aria-pressed={matterIndex===index} className={matterIndex===index?'is-active':''}>
-              <span>0{index+1}</span>
-              <div><strong>{stage.title}</strong><small>{stage.label}</small></div>
-              <b aria-hidden="true">→</b>
-            </button>)}
-          </div>
+    <section className="case-cinema" id="situation" data-journey-chapter="2">
+      <div className="container case-cinema__header">
+        <div>
+          <span className="eyebrow">YOUR CASE. A CLEAR PATH FORWARD.</span>
+          <h2>Know Where<br/><em>Your Case Stands.</em></h2>
         </div>
+        <p>Three moments. Clear next steps.</p>
+      </div>
 
-        <div className="case-story__panel" aria-live="polite">
-          <div className="case-story__panel-number">0{matterIndex+1}</div>
-          <span className="eyebrow">{activeStage.label}</span>
-          <h3>{activeStage.headline}</h3>
-          <p>{activeStage.copy}</p>
-          <button className="text-link" onClick={onPrepare}>Prepare for this stage <span>→</span></button>
-        </div>
+      <div className="container case-cinema__cards" role="group" aria-label="Case stage">
+        {stages.map((stage,index)=><button key={stage.title} onClick={()=>onMatterChange(index)} aria-pressed={matterIndex===index} className={matterIndex===index?'is-active':''}>
+          <span className="case-cinema__num">0{index+1}</span>
+          <small>{stage.label}</small>
+          <strong>{stage.title}</strong>
+          <p>{stage.copy}</p>
+          <b>→</b>
+        </button>)}
+      </div>
+
+      <div className="container case-cinema__active" aria-live="polite">
+        <span>0{matterIndex+1}</span>
+        <div><strong>{activeStage.headline}</strong><p>{activeStage.copy}</p></div>
+        <button className="button primary" onClick={onPrepare}>Prepare for this stage <b>→</b></button>
       </div>
     </section>
 
@@ -95,13 +102,14 @@ export default function CriminalJourney({onPrepare,matterIndex,onMatterChange}){
       <div className="approach-story__photo" aria-hidden="true"><img src={PAPER_PHOTO} alt=""/></div>
       <div className="container approach-story__inner">
         <div className="approach-story__copy">
-          <span className="eyebrow">PREPARATION BEFORE PRESSURE</span>
-          <h2>Build the record.<br/>Then build the defense.</h2>
-          <p>The first useful advantage is not noise. It is structure.</p>
+          <span className="eyebrow">A CLEAR PROCESS. A STRONGER DEFENSE.</span>
+          <h2>Preparation is the first advantage.</h2>
+          <p>Before strategy comes structure. Bring the record into focus, then decide what deserves attention first.</p>
           <div className="approach-story__steps">
-            <div><span>01</span><strong>Build the timeline.</strong><small>Events, people, contact, notices.</small></div>
-            <div><span>02</span><strong>Read the record.</strong><small>Documents, evidence, dates, gaps.</small></div>
-            <div><span>03</span><strong>Define the next move.</strong><small>Options, timing, responsibility.</small></div>
+            <div><span>01</span><strong>Listen.</strong><small>Understand what happened and what is urgent.</small></div>
+            <div><span>02</span><strong>Organize.</strong><small>Timeline, documents, evidence, deadlines.</small></div>
+            <div><span>03</span><strong>Assess.</strong><small>Options, exposure, timing, uncertainty.</small></div>
+            <div><span>04</span><strong>Act.</strong><small>Define the next move and who owns it.</small></div>
           </div>
         </div>
       </div>
@@ -111,7 +119,7 @@ export default function CriminalJourney({onPrepare,matterIndex,onMatterChange}){
       <div className="container faq-story__grid">
         <div>
           <span className="eyebrow">BEFORE YOU CALL</span>
-          <h2>Questions,<br/><em>clearly answered.</em></h2>
+          <h2>Get informed.<br/><em>Then decide.</em></h2>
           <p>Know what to bring, what this site does, and what the first conversation is for.</p>
         </div>
         <div className="faq-story__list">
@@ -128,7 +136,7 @@ export default function CriminalJourney({onPrepare,matterIndex,onMatterChange}){
     <section className="final-story" data-journey-chapter="5">
       <div className="container final-story__inner">
         <span className="eyebrow">WHEN THE STAKES ARE PERSONAL</span>
-        <h2>Start with a clear first conversation.</h2>
+        <h2>Start the conversation with clarity.</h2>
         <p>Bring the facts. Protect your privacy. Know what comes next.</p>
         <button className="button primary" onClick={onPrepare}>Prepare Your Case <b>→</b></button>
       </div>
